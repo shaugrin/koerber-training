@@ -11,7 +11,8 @@ public class a4ProductQueue {
         pq.add(new a4Product(4, "D", 700));
         pq.add(new a4Product(5, "E", 900));
         while (!pq.isEmpty()) {
-            System.out.println(pq.poll().getProductName());
+            a4Product product = pq.poll();
+            System.out.println(product.getProductName() + " : " + product.getProductPrice());
         }
     }
 }
