@@ -8,11 +8,9 @@ public class AnnotationReader {
         Annotation[] annotations = element.getAnnotations();
 
         for (Annotation annotation : annotations) {
-            if (annotation instanceof Author) {
-                Author author = (Author) annotation;
+            if (annotation instanceof Author author) {
                 System.out.println("Author: " + author.name());
-            } else if (annotation instanceof Version) {
-                Version version = (Version) annotation;
+            } else if (annotation instanceof Version version) {
                 System.out.println("Version: " + version.number());
             }
         }
