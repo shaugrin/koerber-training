@@ -1,0 +1,70 @@
+package org.example;
+
+import org.junit.jupiter.api.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BookDaoImpTest {
+
+    private static BookDao bookDao;
+
+
+    @BeforeAll
+    static void setup() {
+        // Initialize the DAO before running tests
+        bookDao = new BookDaoImp();
+    }
+
+    @Test
+    void testGetAllBooks() throws DaoException {
+
+        bookDao.addBook(new Book( "978-0134685991", "Effective Java", "Joshua Bloch", 45.00));
+        bookDao.addBook(new Book( "978-1491950357", "Clean Architecture", "Robert C. Martin", 40.00));
+
+        List<Book> books = bookDao.getAllBooks();
+        System.out.println(books);
+        assertEquals(2, books.size(), "There should be 2 books in the database");
+    }
+
+    @Test
+    void testAddBook() throws DaoException {
+        Book book = new Book( "978-0134685991", "Effective Java", "Joshua Bloch", 45.00);
+        Book addedBook = bookDao.addBook(book);
+
+        assertEquals(book.getTitle(), addedBook.getTitle(), "Book title should match");
+    }
+
+    @Test
+    void testUpdateBook() throws DaoException {
+        Book book = new Book( "978-0134685991", "Effective Java", "Joshua Bloch", 45.00);
+        Book addedBook = bookDao.addBook(book);
+
+        addedBook.setPrice(50.00);
+        bookDao.updateBook(addedBook.getId(), addedBook);
+
+        Book updatedBook = bookDao.getBookById(addedBook.getId());
+        assertEquals(50.00, updatedBook.getPrice(), "Book price should be updated");
+    }
+
+    @Test
+    void testDeleteBook() throws DaoException {
+        Book book = new Book( "978-0134685991", "Effective Java", "Joshua Bloch", 45.00);
+        Book addedBook = bookDao.addBook(book);
+
+        bookDao.deleteBook(addedBook.getId());
+
+        Book deletedBook = bookDao.getBookById(addedBook.getId());
+        assertNull(deletedBook, "Deleted book should not exist");
+    }
+
+    @Test
+    void testGetBookById() throws DaoException {
+        Book book = new Book( "978-0134685991", "Effective Java", "Joshua Bloch", 45.00);
+        Book addedBook = bookDao.addBook(book);
+
+        Book fetchedBook = bookDao.getBookById(addedBook.getId());
+        assertNotNull(fetchedBook, "Fetched book should exist");
+        assertEquals(addedBook.getTitle(), fetchedBook.getTitle(), "Book title should match");
+    }
+}
