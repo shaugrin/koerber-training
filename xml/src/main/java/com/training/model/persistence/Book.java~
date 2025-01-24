@@ -1,4 +1,0 @@
-package com.training.model.persistence;
-
-public class Book {
-}
