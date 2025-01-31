@@ -1,0 +1,28 @@
+package com.example.demo.dao;
+
+import com.example.demo.entities.Account;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class AccountDaoImpl implements AccountDao {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public void update(int id, double balance) {
+        String sql = "UPDATE accounts SET balance = ? WHERE id = ?";
+        jdbcTemplate.update(sql, balance, id);
+    }
+
+    @Override
+    public Account find(int id) {
+        String sql = "SELECT * FROM accounts WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Account.class), id);
+    }
+}
