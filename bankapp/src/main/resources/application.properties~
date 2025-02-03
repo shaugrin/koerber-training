@@ -1,0 +1,16 @@
+spring.application.name=bankapp
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+generic.error.message=Something went wrong
+id.null.message=Id cannot be null
+name.null.message=Name cannot be null
+balance.null.message=Balance cannot be null
+amount.null.message=Amount cannot be null
+from.account.null.message=From account should be specified
+from.account.min.message=From account must be greater than 0
+to.account.null.message=To account should be specified
+amount.min.message=Amount must be greater than 0
+deleted.message=Account deleted
+transfer.message=Transfer successful
+deposit.message=Deposit successful
+withdraw.message=Withdrawal successful
