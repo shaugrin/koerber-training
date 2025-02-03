@@ -1,0 +1,23 @@
+package com.example.demo.controller;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ErrorDetails {
+    private String message;
+    private String details;
+    private LocalDateTime timestamp;
+
+    public ErrorDetails(String message, String s) {
+        this.message = message;
+        this.details = s;
+    }
+}
+
