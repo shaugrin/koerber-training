@@ -1,0 +1,9 @@
+spring.application.name=currency-exchange
+server.port=8000
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.instance.prefer-ip-address=true
+spring.zipkin.base-url=http://localhost:9411
+spring.zipkin.sender.type=web
+spring.zipkin.enabled=true
+spring.zipkin.sample-rate=0.1
+zipkin.client.service-url=http://localhost:9411
