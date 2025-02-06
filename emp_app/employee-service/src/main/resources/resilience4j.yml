@@ -1,0 +1,14 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      departmentServiceProxy:
+        ringBufferSizeInClosedState: 5
+        ringBufferSizeInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+  retry:
+    instances:
+      departmentServiceProxy:
+        maxAttempts: 3
+        waitDuration: 500ms
