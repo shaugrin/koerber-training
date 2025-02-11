@@ -1,0 +1,15 @@
+com\example\demo\DemoApplication.class
+com\example\demo\entity\User.class
+com\example\demo\schedulers\BookScheduler.class
+com\example\demo\aspects\LoggingAspect.class
+com\example\demo\service\CustomUserDetailsService.class
+com\example\demo\controller\AppExHandler.class
+com\example\demo\repo\BookRepository.class
+com\example\demo\service\BookService.class
+com\example\demo\config\SecurityConfig.class
+com\example\demo\controller\ErrorDetails$ErrorDetailsBuilder.class
+com\example\demo\repo\UserRepository.class
+com\example\demo\exception\BookNotFoundException.class
+com\example\demo\entity\Book.class
+com\example\demo\controller\BookController.class
+com\example\demo\controller\ErrorDetails.class
