@@ -1,31 +1,43 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 @Entity
-@Table(name = "books")
-@Getter
-@Setter
+@Table(name="book_table")
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
-
+    @Column(name="book_isbn",nullable = false, unique=true,length=20)
+    private String isbn;
+    @Size(min = 2, max = 50, message = "Title must be between 2-50 characters")
+    @Column(name="book_title",nullable = false,length=20)
+    private String title;
+    @Size(min = 2, max = 30, message = "Category must be between 2 and 30 characters")
+    @Column(name="book_category",nullable = false,length=20)
+    private String category;
+    @Column(name="book_author",nullable = false, length=20)
+    private String author;
+    @Column(name="book_price",nullable = false)
     private BigDecimal price;
-    private LocalDate mfgDate;
 
-    // Getters and Setters
+    public Book(String isbn, String title, String category, String author, BigDecimal price) {
+        this.isbn = isbn;
+        this.title = title;
+        this.category = category;
+        this.author = author;
+        this.price = price;
+    }
 }
-
