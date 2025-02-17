@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/currency_app/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/currency_app/naming-server/pom.xml" />
         <option value="$PROJECT_DIR$/assign-6/pom.xml" />
+        <option value="$PROJECT_DIR$/currency_app/config-server/pom.xml" />
       </list>
     </option>
   </component>
