@@ -1,0 +1,70 @@
+package com.bookapp.service;
+
+import com.bookapp.entities.JournalEntry;
+import com.bookapp.entities.User;
+import com.bookapp.entities.UserJournalEntryDTO;
+import com.bookapp.exceptions.ResourceNotFoundException;
+import com.bookapp.repo.JournalEntryRepo;
+import com.bookapp.repo.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class JournalEntryService {
+
+    @Autowired
+    private JournalEntryRepo journalEntryRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    public JournalEntry createJournalEntry(JournalEntry journalEntry) {
+        return journalEntryRepo.save(journalEntry);
+    }
+
+    public JournalEntry getJournalEntryById(String id) {
+        return journalEntryRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Journal Entry not found"));
+    }
+
+    public List<JournalEntry> getAllJournalEntries() {
+        return journalEntryRepo.findAll();
+    }
+
+    public List<JournalEntry> getJournalEntriesByUser(String userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return mongoTemplate.find(
+                Query.query(Criteria.where("_id").in(
+                        user.getJournalEntries().stream().map(JournalEntry::getId).toList())),
+                JournalEntry.class
+        );
+    }
+
+    public JournalEntry updateJournalEntry(String id, JournalEntry updatedEntry) {
+        Optional<JournalEntry> optionalEntry = journalEntryRepo.findById(id);
+        if (optionalEntry.isPresent()) {
+            JournalEntry entry = optionalEntry.get();
+            entry.setTitle(updatedEntry.getTitle());
+            entry.setContent(updatedEntry.getContent());
+            entry.setDate(updatedEntry.getDate());
+            return journalEntryRepo.save(entry);
+        }
+        throw new RuntimeException("Journal Entry not found");
+    }
+
+    public void deleteJournalEntry(String id) {
+        journalEntryRepo.deleteById(id);
+    }
+
+}
